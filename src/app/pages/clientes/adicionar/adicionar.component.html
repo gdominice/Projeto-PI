@@ -1,0 +1,29 @@
+<div class="cadastrar-container">
+  <h2>{{ titulo }}</h2>
+  
+  <form (ngSubmit)="submeter()" class="form-container">
+    <label>ID:</label>
+    <input type="text" name="id" [(ngModel)]="cliente.id" class="input-simples" required />
+
+    <label>Nome Completo:</label>
+    <input type="text" name="nomeCompleto" [(ngModel)]="cliente.nomeCompleto" class="input-simples" required />
+
+    <label>Telefone:</label>
+    <input type="text" name="telefone" [(ngModel)]="cliente.telefone" class="input-simples" required />
+
+    <label>Pontos XP:</label>
+    <input type="text" name="pontosXP" [(ngModel)]="cliente.pontosXP" class="input-simples" />
+
+    <label>Ranking:</label>
+    <input type="text" name="ranking" [(ngModel)]="cliente.ranking" class="input-simples" />
+
+    <label>Item Alugado:</label>
+    <input type="text" name="itemAlugado" [(ngModel)]="cliente.itemAlugado" class="input-simples" />
+
+    <label>Data Devolução:</label>
+    <input type="date" name="dataDevolucao" [(ngModel)]="cliente.dataDevolucao" class="input-simples" />
+
+    <button type="submit" class="btn-salvar">Cadastrar Cliente</button>
+    <button type="button" class="btn-cancelar" (click)="router.navigate(['../listar'])">Cancelar</button>
+  </form>
+</div>

@@ -1,0 +1,33 @@
+<div class="editar-cliente-container">
+  <h2>Editar Cliente</h2>
+  
+  <div *ngIf="erroBusca" class="erro-mensagem">
+    {{ erroBusca }}
+  </div>
+
+  <form [formGroup]="form" (ngSubmit)="onSubmit()" class="form-container">
+    <label>ID:</label>
+    <input formControlName="id" type="text" class="input-simples" [disabled]="true" />
+
+    <label>Nome Completo:</label>
+    <input formControlName="nomeCompleto" type="text" class="input-simples" required />
+
+    <label>Telefone:</label>
+    <input formControlName="telefone" type="text" class="input-simples" required />
+
+    <label>Pontos XP:</label>
+    <input formControlName="pontosXP" type="text" class="input-simples" />
+
+    <label>Ranking:</label>
+    <input formControlName="ranking" type="text" class="input-simples" />
+
+    <label>Item Alugado:</label>
+    <input formControlName="itemAlugado" type="text" class="input-simples" />
+
+    <label>Data de Devolução:</label>
+    <input formControlName="dataDevolucao" type="date" class="input-simples" />
+
+    <button type="submit" class="btn-salvar">Atualizar Cliente</button>
+    <button type="button" class="btn-cancelar" (click)="cancelar()">Cancelar</button>
+  </form>
+</div>

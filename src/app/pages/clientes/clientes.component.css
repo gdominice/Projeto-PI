@@ -1,0 +1,66 @@
+.clientes-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.clientes-container h1 {
+  color: #333;
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.submenu-container {
+  background-color: #2c3e50;
+  padding: 10px 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  margin-bottom: 30px;
+}
+
+.submenu ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.submenu li {
+  display: inline;
+}
+
+.submenu a {
+  color: #ecf0f1;
+  text-decoration: none;
+  font-weight: bold;
+  transition: color 0.3s ease;
+}
+
+.submenu a:hover {
+  color: #1abc9c;
+}
+
+.submenu a.active {
+  color: #1abc9c;
+}
+
+.content-area {
+  background-color: #ffffff;
+  border: 1px solid #dee2e6;
+  border-radius: 8px;
+  padding: 20px;
+  min-height: 400px;
+  overflow-x: auto;
+}
+
+@media (max-width: 480px) {
+  .submenu ul {
+    flex-direction: column;
+  }
+  
+  .submenu a {
+    display: block;
+  }
+}

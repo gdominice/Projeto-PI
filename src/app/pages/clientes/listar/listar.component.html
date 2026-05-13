@@ -1,0 +1,32 @@
+<div class="content-container">
+    <table>
+      <thead>
+        <tr> 
+          <th>ID</th> 
+          <th>Nome Completo</th>
+          <th>Telefone</th>
+          <th>Pontos XP</th>
+          <th>Ranking</th>
+          <th>Item Alugado</th>
+          <th>Data Devolução</th>
+          <th>Ações</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (c of listaClientes; track c.id){ <tr>
+          <td>{{ c.id }}</td>
+          <td>{{ c.nomeCompleto }}</td>
+          <td>{{ c.telefone }}</td>
+          <td>{{ c.pontosXP }}</td>
+          <td>{{ c.ranking }}</td>
+          <td>{{ c.itemAlugado }}</td>
+          <td>{{ c.dataDevolucao }}</td>
+          <td>
+            <button class="btn-editar" [routerLink]="['../editar', c.id]">Editar</button>
+            <button class="btn-excluir" (click)="excluir(c.id!)">Remover</button>
+          </td>
+        </tr>
+        }
+      </tbody>
+    </table>
+  </div>

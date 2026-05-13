@@ -1,0 +1,13 @@
+<div class="excluir-container">
+    <form (ngSubmit)="excluirItem()">
+      <label for="input-id">Informe o ID do item para excluir:</label>
+      <input
+        type="text"  id="input-id"
+        name="idExcluir"
+        [(ngModel)]="idExcluir"
+        class="input-id"
+        required
+      />
+      <button type="submit" class="btn-excluir">Remover</button>
+    </form>
+   </div>

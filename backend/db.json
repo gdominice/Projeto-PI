@@ -1,0 +1,70 @@
+{
+  "acervo": [
+    {
+      "id": "001",
+      "titulo": "The Legend of Zelda: A Link to the Past",
+      "plataforma": "Super Nintendo",
+      "tipoItem": "Cartucho",
+      "anoLancamento": 1991,
+      "condicao": "Raro",
+      "status": "Disponível"
+    },
+    {
+      "id": "002",
+      "titulo": "Super Metroid",
+      "plataforma": "Super Nintendo",
+      "tipoItem": "Cartucho",
+      "anoLancamento": 1994,
+      "condicao": "Perfeito",
+      "status": "Alugado"
+    },
+    {
+      "id": "003",
+      "titulo": "Sonic the Hedgehog",
+      "plataforma": "Mega Drive",
+      "tipoItem": "Cartucho",
+      "anoLancamento": 1991,
+      "condicao": "Com marcas de uso",
+      "status": "Disponível"
+    },
+    {
+      "id": "004",
+      "titulo": "GameBoy Classic",
+      "plataforma": "GameBoy",
+      "tipoItem": "Console",
+      "anoLancamento": 1989,
+      "condicao": "Raro",
+      "status": "Em Manutenção"
+    }
+  ],
+
+  "clientes": [
+    {
+      "idMembro": 1001,
+      "nomeCompleto": "João Silva",
+      "telefoneContato": "(11) 99999-9999",
+      "pontosXP": 450,
+      "ranking": "Gamer",
+      "itemAlugadoNoMomento": "002",
+      "dataDeDevolucao": "2026-05-20"
+    },
+    {
+      "idMembro": 1002,
+      "nomeCompleto": "Maria Oliveira",
+      "telefoneContato": "(11) 98888-8888",
+      "pontosXP": 780,
+      "ranking": "Colecionador",
+      "itemAlugadoNoMomento": "001",
+      "dataDeDevolucao": "2026-05-25"
+    },
+    {
+      "idMembro": 1003,
+      "nomeCompleto": "Carlos Mendes",
+      "telefoneContato": "(11) 97777-7777",
+      "pontosXP": 1200,
+      "ranking": "Lendário",
+      "itemAlugadoNoMomento": null,
+      "dataDeDevolucao": null
+    }
+  ]
+}

@@ -1,0 +1,29 @@
+<div class="consulta-container">
+    <form (ngSubmit)="buscarCliente()">
+      <label for="input-id">Informe o ID do cliente:</label> 
+      <input
+        type="text"  id="input-id"
+        name="idBusca"
+        [(ngModel)]="idBusca"
+        class="input-id"
+        required
+      />
+      <button type="submit" class="btn-buscar">Buscar</button>
+    </form>
+  
+    <div *ngIf="clienteEncontrado" class="cliente-dados">
+      <h2>Dados do Cliente</h2>
+      
+      <p><strong>ID:</strong> {{ clienteEncontrado.id }}</p>
+      <p><strong>Nome Completo:</strong> {{ clienteEncontrado.nomeCompleto }}</p>
+      <p><strong>Telefone:</strong> {{ clienteEncontrado.telefone }}</p>
+      <p><strong>Pontos XP:</strong> {{ clienteEncontrado.pontosXP }}</p>
+      <p><strong>Ranking:</strong> {{ clienteEncontrado.ranking }}</p>
+      <p><strong>Item Alugado:</strong> {{ clienteEncontrado.itemAlugado }}</p>
+      <p><strong>Data Devolução:</strong> {{ clienteEncontrado.dataDevolucao }}</p>
+    </div>
+  
+    <div *ngIf="erroBusca" class="erro-busca">
+      {{ erroBusca }}
+    </div>
+</div>

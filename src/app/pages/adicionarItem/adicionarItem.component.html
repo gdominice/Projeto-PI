@@ -1,0 +1,31 @@
+<form class="form-container">
+    <label for="input-id">ID</label><br />
+    <input 
+        class="input-simples" 
+        id="input-id" 
+        name="id" 
+        type="text" 
+        [(ngModel)]="item.id" /> 
+        
+    <label for="input-nome">Título</label><br />
+    <input class="input-simples" id="input-nome" name="titulo" type="text" [(ngModel)]="item.titulo" />
+
+    <label for="input-cargo">Plataforma</label><br />
+    <input class="input-simples" id="input-cargo" name="plataforma" type="text" [(ngModel)]="item.plataforma" />
+
+    <label for="input-email">Tipo de Item</label><br />
+    <input class="input-simples" id="input-email" name="tipoItem" type="text" [(ngModel)]="item.tipoItem" />
+
+    <label for="input-telefone">Ano de Lançamento</label><br />
+    <input class="input-simples" id="input-telefone" name="anoLancamento" type="text" [(ngModel)]="item.anoLancamento" />
+
+    <label for="input-salario">Condição</label><br />
+    <input class="input-simples" id="input-salario" name="condicao" type="text" [(ngModel)]="item.condicao" />
+
+    <label for="input-status">Status</label><br />
+    <input class="input-simples" id="input-status" name="status" type="text" [(ngModel)]="item.status" />
+
+    <hr>
+    <button type="button" class="input-submeter" (click)="submeter()">Adicionar ao Acervo</button>
+</form>
+

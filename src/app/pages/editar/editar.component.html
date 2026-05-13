@@ -1,0 +1,42 @@
+<!-- ETAPA 1: digitar o ID -->
+<div *ngIf="etapa === 'buscar'" class="consulta-container">
+  <form (ngSubmit)="buscarItem()">
+    <label for="input-id">Informe o ID do item para alterar:</label>
+    <input
+      type="text"
+      id="input-id"
+      name="idBusca"
+      [(ngModel)]="idBusca"
+      class="input-id"
+      required
+    />
+    <p *ngIf="erroBusca" style="color: red;">{{ erroBusca }}</p>
+    <button type="submit" class="btn-buscar">Buscar</button>
+  </form>
+</div>
+
+<!-- ETAPA 2: formulário de edição -->
+<form *ngIf="etapa === 'editar'" [formGroup]="form" (ngSubmit)="onSubmit()" class="form-container">
+  <label>ID:</label>
+  <input formControlName="id" type="text" class="input-simples" />
+
+  <label>Título:</label>
+  <input formControlName="titulo" type="text" class="input-simples" />
+
+  <label>Plataforma:</label>
+  <input formControlName="plataforma" type="text" class="input-simples" />
+
+  <label>Tipo de Item:</label>
+  <input formControlName="tipoItem" type="text" class="input-simples" />
+
+  <label>Ano de Lançamento:</label>
+  <input formControlName="anoLancamento" type="text" class="input-simples" />
+
+  <label>Condição:</label>
+  <input formControlName="condicao" type="text" class="input-simples" />
+
+  <label>Status:</label>
+  <input formControlName="status" type="text" class="input-simples" />
+
+  <button type="submit" class="input-submeter">Atualizar Item</button>
+</form>
