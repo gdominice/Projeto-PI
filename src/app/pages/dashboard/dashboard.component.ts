@@ -1,0 +1,160 @@
+import { Component, OnInit, OnDestroy, inject } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
+import { AcervoService } from '../../core/services/acervo.service';
+import { ClientesService } from '../../core/services/clientes.service';
+import { ActivityService } from '../../core/services/activity.service';
+import { GamificationService, Achievement } from '../../core/services/gamification.service';
+import { ItemAcervo, Cliente } from '../../core/types/types';
+import { SpinnerComponent } from '../../shared/spinner/spinner.component';
+
+@Component({
+  selector: 'app-dashboard',
+  standalone: true,
+  imports: [CommonModule, RouterModule, SpinnerComponent],
+  templateUrl: './dashboard.component.html',
+  styleUrl: './dashboard.component.css'
+})
+export class DashboardComponent implements OnInit, OnDestroy {
+  private acervoService = inject(AcervoService);
+  private clientesService = inject(ClientesService);
+  activityService = inject(ActivityService);
+  gamification = inject(GamificationService);
+
+  loading = true;
+  totalProdutos = 0;
+  totalClientes = 0;
+  itensAlugados = 0;
+  itensDisponiveis = 0;
+  itensManutencao = 0;
+  clientesVip = 0;
+  produtosRecentes: ItemAcervo[] = [];
+  clientesRecentes: Cliente[] = [];
+  topClientes: Cliente[] = [];
+  todosClientes: Cliente[] = [];
+  relogio = '';
+  dataAtual = '';
+  uptimeSeconds = 0;
+  private timer: any;
+  private uptimeTimer: any;
+
+  showTerminal = true;
+  showScanner = true;
+  scannerAngle = 0;
+  private scannerTimer: any;
+
+  statusData: { label: string; count: number; color: string }[] = [];
+  plataformaData: { label: string; count: number; color: string }[] = [];
+
+  newAchievements: Achievement[] = [];
+  showAchievementPopup = false;
+
+  ngOnInit() {
+    this.carregarStats();
+    this.atualizarRelogio();
+    this.timer = setInterval(() => this.atualizarRelogio(), 1000);
+    this.uptimeTimer = setInterval(() => this.uptimeSeconds++, 1000);
+    this.activityService.fakeSystemBoot();
+
+    this.scannerTimer = setInterval(() => {
+      this.scannerAngle = (this.scannerAngle + 2) % 360;
+    }, 50);
+  }
+
+  ngOnDestroy() {
+    if (this.timer) clearInterval(this.timer);
+    if (this.uptimeTimer) clearInterval(this.uptimeTimer);
+    if (this.scannerTimer) clearInterval(this.scannerTimer);
+  }
+
+  carregarStats() {
+    this.loading = true;
+
+    this.acervoService.listar().subscribe(dados => {
+      this.totalProdutos = dados.length;
+      this.itensAlugados = dados.filter(i =>
+        i.status?.toLowerCase().includes('alugado') || i.status?.toLowerCase().includes('locado')
+      ).length;
+      this.itensDisponiveis = dados.filter(i =>
+        i.status?.toLowerCase().includes('dispon')
+      ).length;
+      this.itensManutencao = dados.filter(i =>
+        i.status?.toLowerCase().includes('manuten')
+      ).length;
+
+      this.statusData = [
+        { label: 'DISPONÍVEL', count: this.itensDisponiveis, color: 'var(--neon-blue)' },
+        { label: 'ALUGADO', count: this.itensAlugados, color: 'var(--neon-pink)' },
+        { label: 'MANUTENÇÃO', count: this.itensManutencao, color: 'var(--pacman-yellow)' }
+      ];
+
+      const pmap = new Map<string, number>();
+      dados.forEach(i => pmap.set(i.plataforma || 'OUTROS', (pmap.get(i.plataforma || 'OUTROS') || 0) + 1));
+      const cores = ['var(--neon-blue)', 'var(--neon-pink)', 'var(--neon-purple)', 'var(--pacman-yellow)', 'var(--text-dim)'];
+      this.plataformaData = Array.from(pmap.entries())
+        .sort((a, b) => b[1] - a[1]).slice(0, 5)
+        .map(([label, count], i) => ({ label, count, color: cores[i % cores.length] }));
+
+      this.produtosRecentes = dados.slice(-4).reverse();
+      this.loading = false;
+
+      if (dados.length > 0) {
+        this.activityService.success(`Acervo sincronizado: ${dados.length} itens`);
+      }
+    });
+
+    this.clientesService.listar().subscribe(dados => {
+      this.totalClientes = dados.length;
+      this.todosClientes = dados;
+      this.clientesVip = dados.filter(c =>
+        c.ranking?.toLowerCase().includes('vip') || c.ranking?.toLowerCase().includes('colecionador')
+      ).length;
+
+      this.topClientes = [...dados]
+        .sort((a, b) => parseInt(b.pontosXP || '0') - parseInt(a.pontosXP || '0'))
+        .slice(0, 5);
+
+      this.clientesRecentes = dados.slice(-4).reverse();
+
+      this.gamification.setXpFromClients(dados);
+      const novos = this.gamification.checkAchievements(this.totalProdutos, this.totalClientes);
+      if (novos.length > 0) {
+        this.newAchievements = novos;
+        this.showAchievementPopup = true;
+        setTimeout(() => this.showAchievementPopup = false, 5000);
+      }
+
+      if (dados.length > 0) {
+        this.activityService.success(`Clientes carregados: ${dados.length} registros`);
+      }
+    });
+  }
+
+  atualizarRelogio() {
+    const agora = new Date();
+    this.relogio = agora.toLocaleTimeString('pt-BR', { hour12: false });
+    this.dataAtual = agora.toLocaleDateString('pt-BR', {
+      weekday: 'short', day: '2-digit', month: 'short', year: 'numeric'
+    });
+  }
+
+  barWidth(count: number, total: number): string {
+    return total > 0 ? (count / total * 100) + '%' : '0%';
+  }
+
+  calcularXpPercent(xp: string | undefined): number {
+    return Math.min((parseInt(xp || '0') / 1000) * 100, 100);
+  }
+
+  getUptime(): string {
+    const h = Math.floor(this.uptimeSeconds / 3600);
+    const m = Math.floor((this.uptimeSeconds % 3600) / 60);
+    const s = this.uptimeSeconds % 60;
+    return `${h.toString().padStart(2, '0')}:${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
+  }
+
+  toggleTerminal() { this.showTerminal = !this.showTerminal; }
+  toggleScanner() { this.showScanner = !this.showScanner; }
+
+  dismissAchievement() { this.showAchievementPopup = false; }
+}

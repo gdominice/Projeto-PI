@@ -1,0 +1,31 @@
+<div class="form-page animate-in">
+  <h2>■ {{ titulo }}</h2>
+
+  <form (ngSubmit)="submeter()" class="form-container">
+    <label>ID:</label>
+    <input type="text" name="id" [(ngModel)]="item.id" required />
+
+    <label>Título:</label>
+    <input type="text" name="titulo" [(ngModel)]="item.titulo" required />
+
+    <label>Plataforma:</label>
+    <input type="text" name="plataforma" [(ngModel)]="item.plataforma" required />
+
+    <label>Tipo de Item:</label>
+    <input type="text" name="tipoItem" [(ngModel)]="item.tipoItem" required />
+
+    <label>Ano de Lançamento:</label>
+    <input type="text" name="anoLancamento" [(ngModel)]="item.anoLancamento" required />
+
+    <label>Condição:</label>
+    <input type="text" name="condicao" [(ngModel)]="item.condicao" required />
+
+    <label>Status:</label>
+    <input type="text" name="status" [(ngModel)]="item.status" required />
+
+    <div class="form-actions">
+      <button type="submit" class="btn-salvar">ADICIONAR</button>
+      <button type="button" class="btn-cancelar" routerLink="../listar">CANCELAR</button>
+    </div>
+  </form>
+</div>

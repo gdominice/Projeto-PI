@@ -1,0 +1,116 @@
+.list-container {
+  overflow-x: auto;
+}
+
+.list-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.list-count {
+  font-size: 7px;
+  letter-spacing: 1px;
+}
+
+.xp-cell {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 100px;
+}
+
+.xp-bar-mini {
+  flex: 1;
+  height: 6px;
+  background: var(--bg-primary);
+  border: 1px solid var(--bg-tertiary);
+  overflow: hidden;
+}
+
+.xp-bar-mini-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--neon-blue), var(--neon-purple));
+  box-shadow: 0 0 4px var(--neon-blue);
+  transition: width 0.4s ease;
+}
+
+.xp-cell-value {
+  font-size: 7px;
+  color: var(--pacman-yellow);
+  min-width: 30px;
+  text-align: right;
+}
+
+.ranking-badge {
+  display: inline-block;
+  font-size: 7px;
+  padding: 2px 8px;
+  border: 1px solid var(--bg-tertiary);
+  color: var(--text-primary);
+}
+
+.ranking-vip {
+  border-color: var(--neon-purple);
+  color: var(--neon-purple);
+  text-shadow: 0 0 8px rgba(184, 41, 240, 0.3);
+}
+
+.ranking-gamer {
+  border-color: var(--neon-blue);
+  color: var(--neon-blue);
+  text-shadow: 0 0 8px rgba(0, 242, 255, 0.3);
+}
+
+td:last-child {
+  white-space: nowrap;
+  display: flex;
+  gap: 6px;
+}
+
+.btn-editar {
+  font-family: var(--font-pixel);
+  font-size: 7px;
+  background: transparent;
+  color: var(--pacman-yellow);
+  border: 1px solid var(--pacman-yellow);
+  padding: 4px 10px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-editar:hover {
+  background: var(--pacman-yellow);
+  color: var(--bg-primary);
+  box-shadow: var(--glow-yellow);
+}
+
+.btn-excluir {
+  font-family: var(--font-pixel);
+  font-size: 7px;
+  background: transparent;
+  color: var(--neon-pink);
+  border: 1px solid var(--neon-pink);
+  padding: 4px 10px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-excluir:hover {
+  background: var(--neon-pink);
+  color: var(--bg-primary);
+  box-shadow: var(--glow-pink);
+}
+
+@media (max-width: 768px) {
+  td:last-child {
+    flex-direction: column;
+  }
+  .btn-editar, .btn-excluir {
+    width: 100%;
+    text-align: center;
+  }
+}

@@ -1,0 +1,31 @@
+<div class="form-page animate-in">
+  <h2>■ {{ titulo }}</h2>
+
+  <form (ngSubmit)="submeter()" class="form-container">
+    <label>ID:</label>
+    <input type="text" name="id" [(ngModel)]="cliente.id" required />
+
+    <label>Nome Completo:</label>
+    <input type="text" name="nomeCompleto" [(ngModel)]="cliente.nomeCompleto" required />
+
+    <label>Telefone:</label>
+    <input type="text" name="telefone" [(ngModel)]="cliente.telefone" required />
+
+    <label>Pontos XP:</label>
+    <input type="text" name="pontosXP" [(ngModel)]="cliente.pontosXP" />
+
+    <label>Ranking:</label>
+    <input type="text" name="ranking" [(ngModel)]="cliente.ranking" />
+
+    <label>Item Alugado:</label>
+    <input type="text" name="itemAlugado" [(ngModel)]="cliente.itemAlugado" />
+
+    <label>Data Devolução:</label>
+    <input type="date" name="dataDevolucao" [(ngModel)]="cliente.dataDevolucao" />
+
+    <div class="form-actions">
+      <button type="submit" class="btn-salvar">CADASTRAR</button>
+      <button type="button" class="btn-cancelar" (click)="router.navigate(['../listar'])">CANCELAR</button>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,51 @@
+{
+  "acervo": [
+    {
+      "id": "002",
+      "titulo": "Super Metroip",
+      "plataforma": "Super Nintendo",
+      "tipoItem": "Cartucho",
+      "anoLancamento": "1994",
+      "condicao": "Perfeito",
+      "status": "Alugado"
+    },
+    {
+      "id": "003",
+      "titulo": "Sonic the Hedgehog",
+      "plataforma": "Mega Drive",
+      "tipoItem": "Cartucho",
+      "anoLancamento": "1991",
+      "condicao": "Com marcas de uso",
+      "status": "Disponível"
+    },
+    {
+      "id": "004",
+      "titulo": "GameBoy Classic",
+      "plataforma": "GameBoy",
+      "tipoItem": "Console",
+      "anoLancamento": "1989",
+      "condicao": "Raro",
+      "status": "Em Manutenção"
+    }
+  ],
+  "clientes": [
+    {
+      "id": "1001",
+      "nomeCompleto": "João Silva",
+      "telefone": "(11) 99999-9999",
+      "pontosXP": "450",
+      "ranking": "Gamer",
+      "itemAlugado": "003",
+      "dataDevolucao": "2026-05-20"
+    },
+    {
+      "id": "1002",
+      "nomeCompleto": "Maria Oliveira",
+      "telefone": "(11) 98888-8888",
+      "pontosXP": "780",
+      "ranking": "Colecionador",
+      "itemAlugado": "001",
+      "dataDevolucao": "2026-05-25"
+    }
+  ]
+}

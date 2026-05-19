@@ -1,0 +1,49 @@
+<div class="form-page animate-in">
+  <h2>■ BUSCAR PRODUTO</h2>
+
+  <form (ngSubmit)="buscarItem()" class="busca-form">
+    <label for="input-id">ID DO PRODUTO:</label>
+    <input type="text" id="input-id" name="idBusca" [(ngModel)]="idBusca" required />
+    <button type="submit" class="btn">BUSCAR</button>
+  </form>
+
+  @if (ItemEncontrado) {
+    <div class="result-card">
+      <h3 class="neon-text">PRODUTO ENCONTRADO</h3>
+      <div class="result-grid">
+        <div class="result-field">
+          <span class="result-field-label">ID</span>
+          <span class="result-field-value">{{ ItemEncontrado.id }}</span>
+        </div>
+        <div class="result-field">
+          <span class="result-field-label">Título</span>
+          <span class="result-field-value">{{ ItemEncontrado.titulo }}</span>
+        </div>
+        <div class="result-field">
+          <span class="result-field-label">Plataforma</span>
+          <span class="result-field-value">{{ ItemEncontrado.plataforma }}</span>
+        </div>
+        <div class="result-field">
+          <span class="result-field-label">Tipo</span>
+          <span class="result-field-value">{{ ItemEncontrado.tipoItem }}</span>
+        </div>
+        <div class="result-field">
+          <span class="result-field-label">Ano</span>
+          <span class="result-field-value">{{ ItemEncontrado.anoLancamento }}</span>
+        </div>
+        <div class="result-field">
+          <span class="result-field-label">Condição</span>
+          <span class="result-field-value">{{ ItemEncontrado.condicao }}</span>
+        </div>
+        <div class="result-field">
+          <span class="result-field-label">Status</span>
+          <span class="result-field-value">{{ ItemEncontrado.status }}</span>
+        </div>
+      </div>
+    </div>
+  }
+
+  @if (erroBusca) {
+    <div class="erro-msg">{{ erroBusca }}</div>
+  }
+</div>

@@ -1,0 +1,81 @@
+.page-container {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.page-header {
+  margin-bottom: 16px;
+  text-align: center;
+}
+
+.page-title {
+  font-size: 12px;
+  margin: 0 0 4px 0;
+  color: var(--pacman-yellow);
+  text-shadow: 2px 2px 0 #000, 0 0 20px rgba(255, 222, 3, 0.3);
+  letter-spacing: 2px;
+}
+
+.page-subtitle {
+  font-size: 7px;
+  letter-spacing: 2px;
+  margin: 0;
+}
+
+.submenu-retro {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 16px;
+  background: var(--bg-secondary);
+  border: 2px solid var(--bg-tertiary);
+  padding: 4px;
+  flex-wrap: wrap;
+}
+
+.submenu-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  font-size: 8px;
+  color: var(--text-dim);
+  text-decoration: none;
+  border: 1px solid transparent;
+  transition: all 0.2s;
+  letter-spacing: 1px;
+}
+
+.submenu-item:hover {
+  color: var(--neon-blue);
+  background: rgba(0, 242, 255, 0.05);
+  border-color: rgba(0, 242, 255, 0.2);
+}
+
+.submenu-item-active {
+  color: var(--pacman-yellow) !important;
+  background: rgba(255, 222, 3, 0.05) !important;
+  border-color: var(--pacman-yellow) !important;
+  text-shadow: 0 0 10px rgba(255, 222, 3, 0.3);
+}
+
+.submenu-icon {
+  font-size: 6px;
+}
+
+.submenu-item-active .submenu-icon {
+  color: var(--pacman-yellow);
+}
+
+.page-content {
+  min-height: 300px;
+  padding: 20px;
+}
+
+@media (max-width: 600px) {
+  .submenu-retro {
+    flex-direction: column;
+  }
+  .submenu-item {
+    justify-content: center;
+  }
+}

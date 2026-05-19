@@ -1,0 +1,49 @@
+<div class="form-page animate-in">
+  <h2>■ BUSCAR CLIENTE</h2>
+
+  <form (ngSubmit)="buscarCliente()" class="busca-form">
+    <label for="input-id">ID DO CLIENTE:</label>
+    <input type="text" id="input-id" name="idBusca" [(ngModel)]="idBusca" required />
+    <button type="submit" class="btn">BUSCAR</button>
+  </form>
+
+  @if (clienteEncontrado) {
+    <div class="result-card">
+      <h3 class="neon-text">CLIENTE ENCONTRADO</h3>
+      <div class="result-grid">
+        <div class="result-field">
+          <span class="result-field-label">ID</span>
+          <span class="result-field-value">{{ clienteEncontrado.id }}</span>
+        </div>
+        <div class="result-field">
+          <span class="result-field-label">Nome</span>
+          <span class="result-field-value">{{ clienteEncontrado.nomeCompleto }}</span>
+        </div>
+        <div class="result-field">
+          <span class="result-field-label">Telefone</span>
+          <span class="result-field-value">{{ clienteEncontrado.telefone }}</span>
+        </div>
+        <div class="result-field">
+          <span class="result-field-label">XP</span>
+          <span class="result-field-value yellow-text">{{ clienteEncontrado.pontosXP }}</span>
+        </div>
+        <div class="result-field">
+          <span class="result-field-label">Ranking</span>
+          <span class="result-field-value">{{ clienteEncontrado.ranking }}</span>
+        </div>
+        <div class="result-field">
+          <span class="result-field-label">Item Alugado</span>
+          <span class="result-field-value">{{ clienteEncontrado.itemAlugado }}</span>
+        </div>
+        <div class="result-field">
+          <span class="result-field-label">Data Devolução</span>
+          <span class="result-field-value">{{ clienteEncontrado.dataDevolucao }}</span>
+        </div>
+      </div>
+    </div>
+  }
+
+  @if (erroBusca) {
+    <div class="erro-msg">{{ erroBusca }}</div>
+  }
+</div>

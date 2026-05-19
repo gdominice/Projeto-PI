@@ -1,0 +1,291 @@
+<div class="dashboard animate-in">
+
+  @if (showAchievementPopup && newAchievements.length > 0) {
+    <div class="achievement-popup" (click)="dismissAchievement()">
+      <div class="achievement-popup-inner">
+        <span class="ach-popup-icon">🏆</span>
+        <div class="ach-popup-body">
+          <span class="ach-popup-title">CONQUISTA DESBLOQUEADA!</span>
+          @for (a of newAchievements; track a.id) {
+            <span class="ach-popup-name">{{ a.icon }} {{ a.name }}</span>
+          }
+        </div>
+      </div>
+    </div>
+  }
+
+  @if (loading) {
+    <app-spinner />
+  } @else {
+    <div class="banner-principal">
+      <div class="banner-content">
+        <span class="banner-tag">SISTEMA OPERACIONAL</span>
+        <h1 class="banner-title">RETRO GAME STORE</h1>
+        <p class="banner-subtitle">{{ dataAtual }} — {{ relogio }}</p>
+        <div class="banner-stats-row">
+          <span class="banner-stat"><span class="stat-icon">◆</span> {{ totalProdutos }} ITENS</span>
+          <span class="banner-stat"><span class="stat-icon">◆</span> {{ totalClientes }} CLIENTES</span>
+          <span class="banner-stat"><span class="stat-icon">◆</span> {{ itensAlugados }} ALUGADOS</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="stats-grid">
+      <div class="stat-card card">
+        <div class="stat-card-header"><span class="stat-icon-large">🎮</span><span class="stat-label">PRODUTOS</span></div>
+        <div class="stat-value neon-text">{{ totalProdutos }}</div>
+        <div class="stat-footer">Itens no acervo</div>
+      </div>
+      <div class="stat-card card">
+        <div class="stat-card-header"><span class="stat-icon-large">👤</span><span class="stat-label">CLIENTES</span></div>
+        <div class="stat-value yellow-text">{{ totalClientes }}</div>
+        <div class="stat-footer">Cadastrados</div>
+      </div>
+      <div class="stat-card card">
+        <div class="stat-card-header"><span class="stat-icon-large">📦</span><span class="stat-label">ALUGADOS</span></div>
+        <div class="stat-value pink-text">{{ itensAlugados }}</div>
+        <div class="stat-footer">Atualmente locados</div>
+      </div>
+      <div class="stat-card card">
+        <div class="stat-card-header"><span class="stat-icon-large">⭐</span><span class="stat-label">NÍVEL</span></div>
+        <div class="stat-value" style="color: var(--neon-purple); text-shadow: 0 0 10px rgba(184, 41, 240, 0.5);">{{ gamification.getLevel().level }}</div>
+        <div class="stat-footer">{{ gamification.getLevel().title }}</div>
+      </div>
+    </div>
+
+    <div class="os-grid">
+      <div class="os-column os-left">
+
+        <div class="panel user-profile-panel">
+          <div class="panel-title">PERFIL DO OPERADOR</div>
+          <div class="profile-content">
+            <div class="profile-avatar">
+              <span>🕹️</span>
+            </div>
+            <div class="profile-info">
+              <span class="profile-name">ADMIN</span>
+              <span class="profile-title">{{ gamification.getLevel().title }}</span>
+              <div class="profile-xp-bar">
+                <div class="profile-xp-bg">
+                  <div class="profile-xp-fill" [style.width.%]="gamification.getXpPercent()"></div>
+                </div>
+                <span class="profile-xp-text">{{ gamification.getTotalXp() }} XP</span>
+              </div>
+              @if (gamification.getNextLevel()) {
+                <span class="profile-next">PRÓX: {{ gamification.getNextLevel()?.title }}</span>
+              }
+            </div>
+          </div>
+          <div class="profile-badges">
+            @for (a of gamification.achievements; track a.id) {
+              <span class="badge" [class.badge-locked]="!a.unlocked" [title]="a.desc">
+                {{ a.unlocked ? a.icon : '🔒' }}
+              </span>
+            }
+          </div>
+        </div>
+
+        <div class="panel scanner-panel" [class.panel-collapsed]="!showScanner">
+          <div class="panel-title" (click)="toggleScanner()" style="cursor:pointer;">
+            RADAR DE ATIVIDADE <span class="collapse-arrow">{{ showScanner ? '▼' : '▲' }}</span>
+          </div>
+          @if (showScanner) {
+            <div class="scanner-container">
+              <div class="scanner-circle">
+                <div class="scanner-sweep" [style.transform]="'rotate(' + scannerAngle + 'deg)'"></div>
+                <div class="scanner-center"></div>
+                @for (p of [1,2,3,4,5,6,7,8]; track p) {
+                  <div class="scanner-dot" [style.transform]="'rotate(' + (p * 45) + 'deg) translateY(-22px)'"></div>
+                }
+              </div>
+              <div class="scanner-stats">
+                <span>{{ totalProdutos }} ITENS</span>
+                <span>{{ itensAlugados }} ATIVOS</span>
+              </div>
+            </div>
+          }
+        </div>
+
+        <div class="panel alert-panel">
+          <div class="panel-title">ALERTAS DO SISTEMA</div>
+          <div class="alert-list">
+            @if (itensAlugados > 0) {
+              <div class="alert-item alert-warning">
+                <span class="alert-icon">⚠</span>
+                <span class="alert-text">{{ itensAlugados }} item(ns) alugado(s) pendente(s)</span>
+              </div>
+            }
+            @if (itensManutencao > 0) {
+              <div class="alert-item alert-info">
+                <span class="alert-icon">ℹ</span>
+                <span class="alert-text">{{ itensManutencao }} item(ns) em manutenção</span>
+              </div>
+            }
+            @if (totalProdutos === 0) {
+              <div class="alert-item alert-error">
+                <span class="alert-icon">✖</span>
+                <span class="alert-text">Acervo vazio — cadastre produtos</span>
+              </div>
+            }
+            @if (totalClientes === 0) {
+              <div class="alert-item alert-error">
+                <span class="alert-icon">✖</span>
+                <span class="alert-text">Nenhum cliente cadastrado</span>
+              </div>
+            }
+            @if (totalProdutos > 0 && totalClientes > 0) {
+              <div class="alert-item alert-success">
+                <span class="alert-icon">✔</span>
+                <span class="alert-text">Sistema operando normalmente</span>
+              </div>
+            }
+          </div>
+        </div>
+      </div>
+
+      <div class="os-column os-center">
+
+        <div class="panel chart-panel">
+          <div class="panel-title">DISTRIBUIÇÃO POR STATUS</div>
+          <div class="chart-container">
+            @for (item of statusData; track item.label) {
+              <div class="chart-row">
+                <span class="chart-label">{{ item.label }}</span>
+                <div class="chart-bar-bg">
+                  <div class="chart-bar-fill" [style.width]="barWidth(item.count, totalProdutos)" [style.background]="item.color" [style.boxShadow]="'0 0 8px ' + item.color"></div>
+                </div>
+                <span class="chart-value">{{ item.count }}</span>
+              </div>
+            }
+          </div>
+        </div>
+
+        <div class="panel chart-panel">
+          <div class="panel-title">PLATAFORMAS</div>
+          <div class="chart-container">
+            @for (item of plataformaData; track item.label) {
+              <div class="chart-row">
+                <span class="chart-label">{{ item.label }}</span>
+                <div class="chart-bar-bg">
+                  <div class="chart-bar-fill" [style.width]="barWidth(item.count, totalProdutos)" [style.background]="item.color" [style.boxShadow]="'0 0 8px ' + item.color"></div>
+                </div>
+                <span class="chart-value">{{ item.count }}</span>
+              </div>
+            }
+            @if (plataformaData.length === 0) {
+              <div class="empty-msg dim-text">Nenhum dado disponível</div>
+            }
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-title">PRODUTOS RECENTES</div>
+          <div class="recent-list-horizontal">
+            @for (item of produtosRecentes; track item.id) {
+              <div class="recent-card">
+                <div class="recent-card-icon">{{ item.plataforma && item.plataforma.includes('Nintendo') ? '🟥' : item.plataforma && item.plataforma.includes('Mega') ? '🟦' : '🟩' }}</div>
+                <div class="recent-card-body">
+                  <span class="recent-card-title">{{ item.titulo }}</span>
+                  <span class="recent-card-meta dim-text">{{ item.plataforma }}</span>
+                </div>
+                <span class="recent-card-status"
+                      [style.color]="item.status && item.status.toLowerCase().includes('alugado') ? 'var(--neon-pink)' :
+                                    item.status && item.status.toLowerCase().includes('dispon') ? 'var(--neon-blue)' :
+                                    'var(--pacman-yellow)'">
+                  {{ item.status }}
+                </span>
+              </div>
+            }
+            @if (produtosRecentes.length === 0) {
+              <div class="empty-msg dim-text">Nenhum produto cadastrado</div>
+            }
+          </div>
+          <div class="panel-footer">
+            <a routerLink="/produtos" class="panel-link">GERENCIAR PRODUTOS ▸</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="os-column os-right">
+
+        <div class="panel">
+          <div class="panel-title">LEADERBOARD — MAIOR XP</div>
+          <div class="leaderboard">
+            @for (cliente of topClientes; track cliente.id; let i = $index) {
+              <div class="lb-item">
+                <div class="lb-rank">
+                  @if (i === 0) { <span style="color: var(--pacman-yellow);">🥇</span> }
+                  @else if (i === 1) { <span style="color: var(--text-dim);">🥈</span> }
+                  @else if (i === 2) { <span style="color: #cd7f32;">🥉</span> }
+                  @else { <span class="dim-text">#{{ i + 1 }}</span> }
+                </div>
+                <div class="lb-info">
+                  <span class="lb-name">{{ cliente.nomeCompleto }}</span>
+                  <div class="xp-bar-container">
+                    <div class="xp-bar-bg">
+                      <div class="xp-bar-fill" [style.width.%]="calcularXpPercent(cliente.pontosXP)"></div>
+                    </div>
+                    <span class="xp-value">{{ cliente.pontosXP }} XP</span>
+                  </div>
+                </div>
+                <span class="lb-ranking">{{ cliente.ranking }}</span>
+              </div>
+            }
+            @if (topClientes.length === 0) {
+              <div class="empty-msg dim-text">Nenhum cliente cadastrado</div>
+            }
+          </div>
+        </div>
+
+        <div class="panel activity-panel">
+          <div class="panel-title">FEED DE ATIVIDADE</div>
+          <div class="activity-feed">
+            @for (log of activityService.getRecentLogs(10); track log) {
+              <div class="activity-item" [class.act-system]="log.type === 'system'"
+                                          [class.act-success]="log.type === 'success'"
+                                          [class.act-error]="log.type === 'error'"
+                                          [class.act-warning]="log.type === 'warning'">
+                <span class="act-icon">{{ log.icon }}</span>
+                <span class="act-msg">{{ log.message }}</span>
+                <span class="act-time dim-text">{{ log.timestamp | date:'HH:mm:ss' }}</span>
+              </div>
+            }
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-title">SISTEMA</div>
+          <div class="sys-info">
+            <div class="sys-row">
+              <span class="sys-label">STATUS</span>
+              <span class="sys-value neon-text"><span class="status-dot online"></span> OPERACIONAL</span>
+            </div>
+            <div class="sys-row">
+              <span class="sys-label">UPTIME</span>
+              <span class="sys-value">{{ getUptime() }}</span>
+            </div>
+            <div class="sys-row">
+              <span class="sys-label">BANCO</span>
+              <span class="sys-value"><span class="status-dot online"></span> CONECTADO</span>
+            </div>
+            <div class="sys-row">
+              <span class="sys-label">VERSÃO</span>
+              <span class="sys-value">2.0</span>
+            </div>
+            <div class="sys-row">
+              <span class="sys-label">ITENS</span>
+              <span class="sys-value">{{ totalProdutos + totalClientes }} REGISTROS</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="info-bar">
+      <div class="info-item"><span class="status-dot online"></span> SISTEMA OPERACIONAL</div>
+      <div class="info-item"><span class="status-dot online"></span> BANCO DE DADOS CONECTADO</div>
+      <div class="info-item dim-text">UPTIME: {{ getUptime() }}</div>
+      <div class="info-item dim-text">{{ relogio }}</div>
+    </div>
+  }
+</div>

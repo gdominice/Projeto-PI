@@ -1,0 +1,108 @@
+<div class="app-shell">
+  <div class="bg-grid"></div>
+  <div class="crt-scanlines"></div>
+  <app-toast />
+
+  <header class="top-bar">
+    <div class="top-bar-left">
+      <button class="sidebar-toggle" (click)="alternarSidebar()" title="Alternar Sidebar">
+        {{ sidebarAberta ? '◄' : '►' }}
+      </button>
+      <div class="logo-area">
+        <span class="logo-icon">🕹️</span>
+        <span class="logo-text">RETRO GAME STORE</span>
+        <span class="logo-version neon-text">v2.0</span>
+      </div>
+    </div>
+    <div class="top-bar-center">
+      <span class="top-indicator">
+        <span class="status-dot online"></span> SISTEMA
+      </span>
+      <span class="top-indicator dim-text">|</span>
+      <span class="top-indicator">
+        NÍVEL {{ gamification.getLevel().level }} {{ gamification.getLevel().title }}
+      </span>
+      <span class="top-indicator dim-text">|</span>
+      <span class="top-indicator">
+        {{ gamification.getTotalXp() }} XP
+      </span>
+    </div>
+    <div class="top-bar-right">
+      <span class="status-indicator">
+        <span class="status-dot online"></span>
+        ONLINE
+      </span>
+      <span class="clock neon-text">{{ relogio }}</span>
+    </div>
+  </header>
+
+  <div class="app-body">
+    <aside class="sidebar" [class.sidebar-fechada]="!sidebarAberta">
+      <div class="sidebar-profile">
+        <div class="sidebar-avatar">
+          <span>🕹️</span>
+        </div>
+        <div class="sidebar-user-info">
+          <span class="sidebar-user-name">ADMIN</span>
+          <span class="sidebar-user-title">{{ gamification.getLevel().title }}</span>
+          <div class="sidebar-xp">
+            <div class="sidebar-xp-bg">
+              <div class="sidebar-xp-fill" [style.width.%]="gamification.getXpPercent()"></div>
+            </div>
+            <span class="sidebar-xp-text">{{ gamification.getTotalXp() }} XP</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="sidebar-divider"></div>
+
+      <nav class="sidebar-nav">
+        @for (item of menuItems; track item.path) {
+          <a class="sidebar-item"
+             [routerLink]="item.path"
+             routerLinkActive="sidebar-item-active"
+             [routerLinkActiveOptions]="{exact: item.path === '/dashboard'}">
+            <span class="sidebar-icon">{{ item.icon }}</span>
+            <span class="sidebar-label">{{ item.label }}</span>
+          </a>
+        }
+      </nav>
+
+      <div class="sidebar-divider"></div>
+
+      <div class="sidebar-achievements">
+        <span class="sidebar-section-title">CONQUISTAS</span>
+        <div class="sidebar-badges">
+          @for (a of gamification.achievements; track a.id) {
+            <span class="side-badge" [class.side-badge-locked]="!a.unlocked" [title]="a.desc">
+              {{ a.unlocked ? a.icon : '🔒' }}
+            </span>
+          }
+        </div>
+      </div>
+
+      <div class="sidebar-footer">
+        <div class="sidebar-status">
+          <span class="status-dot online"></span>
+          SISTEMA ATIVO
+        </div>
+        <div class="sidebar-uptime dim-text" id="sidebarUptime"></div>
+      </div>
+    </aside>
+
+    <main class="main-content">
+      <router-outlet />
+    </main>
+  </div>
+
+  <footer class="status-bar">
+    <div class="status-left">
+      <span class="marquee">
+        <span>RETRO GAME STORE — SISTEMA DE GERENCIAMENTO v2.0 ◆ TODOS OS DIREITOS RESERVADOS ◆ POWERED BY ANGULAR &amp; JSON-SERVER ◆ SISTEMA OPERACIONAL ◆</span>
+      </span>
+    </div>
+    <div class="status-right dim-text">
+      <span>© 2026 PIXEL TECH</span>
+    </div>
+  </footer>
+</div>

@@ -1,0 +1,35 @@
+<div class="form-page animate-in">
+  <h2>■ EDITAR CLIENTE</h2>
+
+  @if (erroBusca) {
+    <div class="erro-msg">{{ erroBusca }}</div>
+  }
+
+  <form [formGroup]="form" (ngSubmit)="onSubmit()" class="form-container">
+    <label>ID:</label>
+    <input formControlName="id" type="text" [disabled]="true" />
+
+    <label>Nome Completo:</label>
+    <input formControlName="nomeCompleto" type="text" required />
+
+    <label>Telefone:</label>
+    <input formControlName="telefone" type="text" required />
+
+    <label>Pontos XP:</label>
+    <input formControlName="pontosXP" type="text" />
+
+    <label>Ranking:</label>
+    <input formControlName="ranking" type="text" />
+
+    <label>Item Alugado:</label>
+    <input formControlName="itemAlugado" type="text" />
+
+    <label>Data Devolução:</label>
+    <input formControlName="dataDevolucao" type="date" />
+
+    <div class="form-actions">
+      <button type="submit" class="btn-salvar">ATUALIZAR</button>
+      <button type="button" class="btn-cancelar" (click)="cancelar()">CANCELAR</button>
+    </div>
+  </form>
+</div>

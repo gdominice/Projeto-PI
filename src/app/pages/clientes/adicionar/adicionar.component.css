@@ -1,0 +1,42 @@
+.form-page {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.form-page h2 {
+  font-size: 10px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.form-container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.form-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 8px;
+  flex-wrap: wrap;
+}
+
+.btn-salvar {
+  flex: 1;
+  min-width: 140px;
+}
+
+.btn-cancelar {
+  flex: 1;
+  min-width: 140px;
+  background: transparent;
+  border-color: var(--text-dim);
+  color: var(--text-dim);
+}
+
+.btn-cancelar:hover {
+  background: var(--text-dim);
+  color: var(--bg-primary);
+  box-shadow: none;
+}

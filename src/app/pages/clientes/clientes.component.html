@@ -1,0 +1,25 @@
+<div class="page-container animate-in">
+  <div class="page-header">
+    <h1 class="page-title">■ GERENCIAR CLIENTES</h1>
+    <p class="page-subtitle dim-text">CADASTRO DE CLIENTES DA LOCADORA</p>
+  </div>
+
+  <nav class="submenu-retro">
+    <a class="submenu-item" routerLink="listar" routerLinkActive="submenu-item-active" [routerLinkActiveOptions]="{exact: true}">
+      <span class="submenu-icon">●</span> LISTAR
+    </a>
+    <a class="submenu-item" routerLink="buscar" routerLinkActive="submenu-item-active">
+      <span class="submenu-icon">●</span> BUSCAR
+    </a>
+    <a class="submenu-item" routerLink="adicionar" routerLinkActive="submenu-item-active">
+      <span class="submenu-icon">●</span> ADICIONAR
+    </a>
+    <a class="submenu-item" routerLink="remover" routerLinkActive="submenu-item-active">
+      <span class="submenu-icon">●</span> REMOVER
+    </a>
+  </nav>
+
+  <div class="page-content card">
+    <router-outlet />
+  </div>
+</div>

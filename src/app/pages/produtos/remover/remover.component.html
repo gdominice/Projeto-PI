@@ -1,0 +1,15 @@
+<div class="form-page animate-in">
+  <h2>■ REMOVER PRODUTO</h2>
+
+  <form (ngSubmit)="removerItem()" class="remove-form">
+    <label for="input-id">ID DO PRODUTO:</label>
+    <input type="text" id="input-id" name="idExcluir" [(ngModel)]="idExcluir" required />
+    <button type="submit" class="btn" style="border-color: var(--neon-pink); color: var(--neon-pink);">
+      REMOVER
+    </button>
+  </form>
+
+  @if (erroMensagem) {
+    <div class="erro-msg">{{ erroMensagem }}</div>
+  }
+</div>
